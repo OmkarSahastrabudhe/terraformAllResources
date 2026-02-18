@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "web_server" {
     ami = var.ami
-    instance_type = "t2.small"
+    instance_type = "t3.small"
     key_name = var.key_pair
     vpc_security_group_ids = [aws_default_security_group.default.id]
      user_data = <<-EOF
