@@ -7,12 +7,9 @@ resource "aws_instance" "web_server" {
     instance_type = "t3.small"
     key_name = var.key_pair
     vpc_security_group_ids = [aws_default_security_group.default.id]
-     user_data = <<-EOF
-                #!/bin/bash
-                sudo apt update -y
-                sudo apt install apache2 -y
-                sudo systemctl --now enable apache2
-                EOF
+     user_data = file("/home/ubuntu/script.sh") 
+               
+                
                 
 
 }
