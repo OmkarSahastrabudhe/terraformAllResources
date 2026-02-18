@@ -6,7 +6,7 @@ resource "aws_instance" "web_server" {
     ami = var.ami
     instance_type = "t2.small"
     key_name = var.key_pair
-    vpc_security_group_ids = [data.aws_default_security_group.default.id]
+    vpc_security_group_ids = [aws_default_security_group.default.id]
      user_data = <<-EOF
                 #!/bin/bash
                 sudo apt update -y
@@ -26,11 +26,12 @@ variable "key_pair" {
   
 }
 
-data "aws_default_vpc" "default" {}
+resource "aws_default_vpc" "default" {}
 
-data "aws_default_security_group" "default" {
-  vpc_id = data.aws_default_vpc.default.id
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_default_vpc.default.id
 }
+
 
 
     
